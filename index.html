@@ -312,16 +312,69 @@
     .when { padding-top: 0; }
   }
 
-  /* Print Styles */
-  @media print {
-    #blueprint-canvas, .btn-print { display: none !important; }
-    body { background: #fff !important; color: #000 !important; }
-    .sheet { border: none; box-shadow: none; background: #fff; max-width: 100%; margin: 0; }
-    h1 { -webkit-text-fill-color: #000; }
-    .entry h3, .org, .project-title, h2 { color: #000 !important; }
-    .entry, .entry.visible { opacity: 1 !important; transform: none !important; }
-    .tags li, .project-item, .stat-card { background: #fff !important; border: 1px solid #ccc !important; color: #000 !important; }
+/* ==========================================
+   OPTIMIZED PRINT STYLES (A4 FORMAT)
+   ========================================== */
+@media print {
+  /* 1. ضبط مقاس الصفحة A4 وإلغاء الهوامش العشوائية */
+  @page {
+    size: A4 portrait;
+    margin: 12mm 15mm 12mm 15mm; /* هوامش متناسقة للطباعة */
   }
+
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt !important;
+    line-height: 1.4 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* 2. إخفاء الزر العائم والخلفيات المتحركة والأشياء غير الضرورية */
+  .hire-me-float,
+  #blueprint-canvas,
+  #site-canvas,
+  .back-btn,
+  nav,
+  footer {
+    display: none !important;
+  }
+
+  /* 3. منع انقسام كروت الخبرة والمشاريع بين الصفحات */
+  .card, 
+  .experience-card, 
+  .project-card, 
+  .timeline-item, 
+  .job-block,
+  section {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    margin-bottom: 1rem !important;
+    box-shadow: none !important;
+    border: 1px solid #ddd !important; /* إطار خفيف وواضح في الطباعة */
+    background: #ffffff !important;
+  }
+
+  /* 4. منع انقسام العناوين عن محتواها */
+  h1, h2, h3, h4, .section-title {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+    color: #000000 !important;
+  }
+
+  /* 5. تحسين ظهور النصوص والقوائم */
+  p, li {
+    color: #222222 !important;
+  }
+
+  a {
+    text-decoration: none !important;
+    color: #000000 !important;
+  }
+}
   /* ==========================================
    FLOATING HIRE ME BUTTON (ANIMATED)
    ========================================== */

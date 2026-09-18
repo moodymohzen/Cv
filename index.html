@@ -312,58 +312,67 @@
     .when { padding-top: 0; }
   }
 
-/* ==========================================
-   FIX PAGE 1 EMPTY SPACE FOR PRINTING
-   ========================================== */
 @media print {
-  /* إلغاء الارتفاع الكلي للشاشة وتصغير الهوامش */
+  /* 1. ضبط مقاس الصفحة وإلغاء خلفيات الشاشة والظلال */
+  @page {
+    size: A4 portrait;
+    margin: 10mm 12mm 10mm 12mm;
+  }
+
   html, body {
-    height: auto !important;
-    min-height: initial !important;
     background: #ffffff !important;
-    color: #000000 !important;
-    font-size: 10.5pt !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    color: #111111 !important;
+    font-size: 10pt !important;
+    line-height: 1.35 !important;
+    box-shadow: none !important;
   }
 
-  /* إزالة أي فواصل صفحات قسرية بعد الهيدر */
-  header, .hero-section, .profile-card, .intro-section {
-    page-break-after: avoid !important;
-    break-after: avoid !important;
-    height: auto !important;
-    min-height: initial !important;
-    margin-bottom: 1.5rem !important;
-    padding-bottom: 0 !important;
-  }
-
-  /* تقليل الفواصل المباشرة بين الأقسام */
-  section {
-    margin-top: 1rem !important;
-    margin-bottom: 1rem !important;
-    padding: 0 !important;
-  }
-
-  /* السماح للخبرات بالبدء فوراً تحت معلومات الاتصال */
-  .work-experience, .experience-section {
-    page-break-before: avoid !important;
-    break-before: avoid !important;
-    margin-top: 0 !important;
-  }
-
-  /* منع تفكك بطاقات الخبرة */
-  .card, .experience-card, .project-card {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-    margin-bottom: 0.8rem !important;
-  }
-
-  /* إخفاء العناصر غير المطلوبة */
-  .hire-me-float, #site-canvas, #blueprint-canvas, .back-btn {
+  /* إخفاء الأزرار والخلفيات المتحركة */
+  .hire-me-float, #site-canvas, #blueprint-canvas, .back-btn, nav, footer {
     display: none !important;
   }
-}
-  /* ==========================================
+
+  /* 2. إلغاء الارتفاعات الثابته والفواصل القسرية في الهيدر */
+  header, .hero-section, .profile-card {
+    height: auto !important;
+    min-height: initial !important;
+    margin-bottom: 1rem !important;
+    padding-bottom: 0.5rem !important;
+    break-after: auto !important;
+  }
+
+  /* 3. الحل الذكي للكروت: السماح بانقسام القوائم الداخلية مع منع انقسام عناوين الوظائف */
+  .card, .experience-card, .project-card, .job-block {
+    background: #ffffff !important;
+    border: 1px solid #e0e0e0 !important;
+    box-shadow: none !important;
+    margin-bottom: 0.8rem !important;
+    padding: 0.8rem !important;
+    /* السماح للبطاقة بالانسياب بدون أن تنقطع بغرابة */
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  /* إجبار عنوان الوظيفة واسم الشركة على البقاء معاً بدون انفصال */
+  .job-title, .company-name, h3, h4 {
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+  }
+
+  /* منع انقسام النقاط المحددة (ul li) داخل البطاقة بصورة مشوهة */
+  ul li, .experience-item {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* منع انقسام عناوين الأقسام الرئيسية */
+  .section-title, h2 {
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+    margin-top: 1rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+}  /* ==========================================
    FLOATING HIRE ME BUTTON (ANIMATED)
    ========================================== */
 .hire-me-float {

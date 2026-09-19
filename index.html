@@ -305,197 +305,171 @@
     transform: translateY(-2px);
   }
 
+  /* FLOATING HIRE ME BUTTON */
+  .hire-me-float {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 999;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.8rem 1.4rem;
+    background: linear-gradient(135deg, #E29D2B 0%, #C4801A 100%);
+    color: #0B0F12;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border-radius: 50px;
+    box-shadow: 0 10px 25px rgba(226, 157, 43, 0.35),
+                0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+    cursor: pointer;
+    animation: floatBob 3.5s ease-in-out infinite, pulseGlow 2.5s infinite;
+    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .hire-me-float .beacon {
+    width: 9px;
+    height: 9px;
+    background-color: #00FF88;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #00FF88;
+    position: relative;
+  }
+
+  .hire-me-float .beacon::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 2px solid #00FF88;
+    animation: beaconPing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+    opacity: 0.8;
+  }
+
+  .hire-me-float .hire-icon {
+    transition: transform 0.3s ease;
+  }
+
+  .hire-me-float:hover {
+    transform: translateY(-5px) scale(1.05);
+    background: linear-gradient(135deg, #F5B038 0%, #E29D2B 100%);
+    box-shadow: 0 15px 35px rgba(226, 157, 43, 0.5),
+                0 0 20px rgba(226, 157, 43, 0.4);
+    color: #000;
+  }
+
+  .hire-me-float:hover .hire-icon {
+    transform: rotate(-10deg) scale(1.15);
+  }
+
+  .hire-me-float:active {
+    transform: translateY(-2px) scale(0.98);
+  }
+
+  @keyframes floatBob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-9px); }
+  }
+
+  @keyframes pulseGlow {
+    0% { box-shadow: 0 10px 25px rgba(226, 157, 43, 0.35), 0 0 0 0 rgba(226, 157, 43, 0.4); }
+    70% { box-shadow: 0 10px 25px rgba(226, 157, 43, 0.35), 0 0 0 15px rgba(226, 157, 43, 0); }
+    100% { box-shadow: 0 10px 25px rgba(226, 157, 43, 0.35), 0 0 0 0 rgba(226, 157, 43, 0); }
+  }
+
+  @keyframes beaconPing {
+    0% { transform: scale(0.8); opacity: 0.8; }
+    100% { transform: scale(1.8); opacity: 0; }
+  }
+
   /* Responsive */
   @media (max-width: 680px) {
     .sheet { margin: 0; border-radius: 0; }
     .entry { grid-template-columns: 1fr; gap: 0.4rem; }
     .when { padding-top: 0; }
+    .hire-me-float {
+      bottom: 1.5rem;
+      right: 1.2rem;
+      padding: 0.7rem 1.2rem;
+      font-size: 0.88rem;
+    }
   }
 
-@media print {
-  /* 1. ضبط مقاس الصفحة وإلغاء خلفيات الشاشة والظلال */
-  @page {
-    size: A4 portrait;
-    margin: 10mm 12mm 10mm 12mm;
+  /* OPTIMIZED PRINT STYLES (A4 & SPACE SAVING) */
+  @media print {
+    @page {
+      size: A4 portrait;
+      margin: 8mm 10mm 8mm 10mm;
+    }
+
+    html, body {
+      background: #ffffff !important;
+      color: #111111 !important;
+      font-size: 9.5pt !important;
+      line-height: 1.3 !important;
+      height: auto !important;
+    }
+
+    .sheet {
+      margin: 0 !important;
+      padding: 0 !important;
+      border: none !important;
+      box-shadow: none !important;
+      background: transparent !important;
+    }
+
+    .pad {
+      padding: 0.6rem 0 !important;
+    }
+
+    header.hero, section {
+      border: none !important;
+      height: auto !important;
+      min-height: auto !important;
+    }
+
+    .hire-me-float, #blueprint-canvas, .btn-print, footer span {
+      display: none !important;
+    }
+
+    .entry {
+      opacity: 1 !important;
+      transform: none !important;
+      padding-block: 0.4rem !important;
+      grid-template-columns: 8rem 1fr !important;
+      gap: 0.8rem !important;
+      break-inside: auto !important;
+    }
+
+    .project-item {
+      padding: 0.4rem 0.6rem !important;
+      margin-bottom: 0.4rem !important;
+      border: 1px solid #ddd !important;
+      background: #fff !important;
+      break-inside: avoid !important;
+    }
+
+    h2 {
+      margin: 0.5rem 0 0.3rem !important;
+      font-size: 1.05rem !important;
+      color: #000 !important;
+      break-after: avoid !important;
+    }
+
+    h3 { font-size: 10pt !important; color: #000 !important; margin: 0 !important; }
+    .org { margin: 0 0 0.3rem !important; color: #333 !important; }
+
+    ul { margin: 0.2rem 0 !important; padding-left: 1rem !important; }
+    li { margin-bottom: 0.15rem !important; break-inside: avoid !important; }
+
+    .stats-grid { margin-bottom: 0.6rem !important; gap: 0.5rem !important; }
+    .stat-card { padding: 0.3rem !important; border: 1px solid #ddd !important; }
   }
-
-  html, body {
-    background: #ffffff !important;
-    color: #111111 !important;
-    font-size: 10pt !important;
-    line-height: 1.35 !important;
-    box-shadow: none !important;
-  }
-
-  /* إخفاء الأزرار والخلفيات المتحركة */
-  .hire-me-float, #site-canvas, #blueprint-canvas, .back-btn, nav, footer {
-    display: none !important;
-  }
-
-  /* 2. إلغاء الارتفاعات الثابته والفواصل القسرية في الهيدر */
-  header, .hero-section, .profile-card {
-    height: auto !important;
-    min-height: initial !important;
-    margin-bottom: 1rem !important;
-    padding-bottom: 0.5rem !important;
-    break-after: auto !important;
-  }
-
-  /* 3. الحل الذكي للكروت: السماح بانقسام القوائم الداخلية مع منع انقسام عناوين الوظائف */
-  .card, .experience-card, .project-card, .job-block {
-    background: #ffffff !important;
-    border: 1px solid #e0e0e0 !important;
-    box-shadow: none !important;
-    margin-bottom: 0.8rem !important;
-    padding: 0.8rem !important;
-    /* السماح للبطاقة بالانسياب بدون أن تنقطع بغرابة */
-    break-inside: auto !important;
-    page-break-inside: auto !important;
-  }
-
-  /* إجبار عنوان الوظيفة واسم الشركة على البقاء معاً بدون انفصال */
-  .job-title, .company-name, h3, h4 {
-    break-after: avoid !important;
-    page-break-after: avoid !important;
-  }
-
-  /* منع انقسام النقاط المحددة (ul li) داخل البطاقة بصورة مشوهة */
-  ul li, .experience-item {
-    break-inside: avoid !important;
-    page-break-inside: avoid !important;
-  }
-
-  /* منع انقسام عناوين الأقسام الرئيسية */
-  .section-title, h2 {
-    break-after: avoid !important;
-    page-break-after: avoid !important;
-    margin-top: 1rem !important;
-    margin-bottom: 0.5rem !important;
-  }
-}
-}  /* ==========================================
-   FLOATING HIRE ME BUTTON (ANIMATED)
-   ========================================== */
-.hire-me-float {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 999;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.65rem;
-  padding: 0.8rem 1.4rem;
-  background: linear-gradient(135deg, #E29D2B 0%, #C4801A 100%);
-  color: #0B0F12;
-  font-family: "Space Grotesk", sans-serif;
-  font-weight: 700;
-  font-size: 0.95rem;
-  text-decoration: none;
-  border-radius: 50px;
-  box-shadow: 0 10px 25px rgba(226, 157, 43, 0.35),
-              0 0 0 1px rgba(255, 255, 255, 0.2) inset;
-  cursor: pointer;
-  
-  /* Smooth Animations */
-  animation: floatBob 3.5s ease-in-out infinite, pulseGlow 2.5s infinite;
-  transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-/* Status Indicator Beacon (Green Live Dot) */
-.hire-me-float .beacon {
-  width: 9px;
-  height: 9px;
-  background-color: #00FF88;
-  border-radius: 50%;
-  box-shadow: 0 0 8px #00FF88;
-  position: relative;
-}
-
-.hire-me-float .beacon::after {
-  content: '';
-  position: absolute;
-  top: -3px;
-  left: -3px;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  border: 2px solid #00FF88;
-  animation: beaconPing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
-  opacity: 0.8;
-}
-
-.hire-me-float .hire-icon {
-  transition: transform 0.3s ease;
-}
-
-/* Hover Interaction */
-.hire-me-float:hover {
-  transform: translateY(-5px) scale(1.05);
-  background: linear-gradient(135deg, #F5B038 0%, #E29D2B 100%);
-  box-shadow: 0 15px 35px rgba(226, 157, 43, 0.5),
-              0 0 20px rgba(226, 157, 43, 0.4);
-  color: #000;
-}
-
-.hire-me-float:hover .hire-icon {
-  transform: rotate(-10deg) scale(1.15);
-}
-
-.hire-me-float:active {
-  transform: translateY(-2px) scale(0.98);
-}
-
-/* Keyframes - 1. Smooth Floating Animation */
-@keyframes floatBob {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-9px);
-  }
-}
-
-/* Keyframes - 2. Soft Ambient Pulse Glow */
-@keyframes pulseGlow {
-  0% {
-    box-shadow: 0 10px 25px rgba(226, 157, 43, 0.35), 0 0 0 0 rgba(226, 157, 43, 0.4);
-  }
-  70% {
-    box-shadow: 0 10px 25px rgba(226, 157, 43, 0.35), 0 0 0 15px rgba(226, 157, 43, 0);
-  }
-  100% {
-    box-shadow: 0 10px 25px rgba(226, 157, 43, 0.35), 0 0 0 0 rgba(226, 157, 43, 0);
-  }
-}
-
-/* Keyframes - 3. Live Dot Ping Animation */
-@keyframes beaconPing {
-  0% {
-    transform: scale(0.8);
-    opacity: 0.8;
-  }
-  100% {
-    transform: scale(1.8);
-    opacity: 0;
-  }
-}
-
-/* Responsive Position for Mobile Devices */
-@media (max-width: 680px) {
-  .hire-me-float {
-    bottom: 1.5rem;
-    right: 1.2rem;
-    padding: 0.7rem 1.2rem;
-    font-size: 0.88rem;
-  }
-}
-
-/* Hide on Print / Save PDF */
-@media print {
-  .hire-me-float {
-    display: none !important;
-  }
-}
 </style>
 </head>
 <body>
@@ -707,12 +681,10 @@
     ctx.clearRect(0, 0, width, height);
 
     const gridSize = 40;
-    const offset = (Date.now() * 0.005) % gridSize;
 
     ctx.strokeStyle = 'rgba(0, 119, 255, 0.05)';
     ctx.lineWidth = 1;
 
-    // Grid lines
     for (let x = 0; x < width; x += gridSize) {
       ctx.beginPath();
       ctx.moveTo(x, 0);
@@ -726,7 +698,6 @@
       ctx.stroke();
     }
 
-    // Blueprint Ambient Spotlight effect at Mouse
     const gradient = ctx.createRadialGradient(mouseX, mouseY, 10, mouseX, mouseY, 350);
     gradient.addColorStop(0, 'rgba(0, 119, 255, 0.12)');
     gradient.addColorStop(1, 'transparent');
@@ -751,9 +722,8 @@
   entries.forEach(entry => observer.observe(entry));
 </script>
 
-
 <!-- Floating "Hire Me" Button -->
-<a href="Contact.html" class="hire-me-float" title="Contact Ahmed Mohsen">
+<a href="./contact.html" class="hire-me-float" title="Contact Ahmed Mohsen">
   <span class="beacon"></span>
   <svg class="hire-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
@@ -761,7 +731,6 @@
   </svg>
   <span class="hire-text">Hire Me</span>
 </a>
-
 
 </body>
 </html>
